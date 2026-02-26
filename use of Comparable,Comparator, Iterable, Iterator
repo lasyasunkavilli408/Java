@@ -1,0 +1,162 @@
+// Employee 
+
+// Import Comparable and Comparator
+import java.util.Comparator;
+
+// Employee class implementing Comparable
+public class Employee implements Comparable<Employee> {
+
+    int id;          // employee id
+    String name;     // employee name
+    double sal;      // employee salary
+
+    // Constructor to initialize values
+    Employee(int id, String name, double sal) {
+        this.id = id;
+        this.name = name;
+        this.sal = sal;
+    }
+
+    // Default comparison (sort by ID)
+    @Override
+    public int compareTo(Employee e) {
+
+        // ascending order based on id
+        return this.id - e.id;
+    }
+
+    // Display employee details
+    public String toString() {
+        return id + "  " + name + "  " + sal;
+    }
+}
+
+/*--------------------------------------------------
+   Name Comparator Class
+--------------------------------------------------*/
+class NameComparator implements Comparator<Employee> {
+
+    // Compare employees using name
+    public int compare(Employee e1, Employee e2) {
+        return e1.name.compareTo(e2.name);
+    }
+}
+
+/*--------------------------------------------------
+   Salary Comparator Class
+--------------------------------------------------*/
+class SalComparator implements Comparator<Employee> {
+
+    // Compare employees using salary
+    public int compare(Employee e1, Employee e2) {
+
+        if (e1.sal > e2.sal)
+            return 1;
+        else if (e1.sal < e2.sal)
+            return -1;
+        else
+            return 0;
+    }
+}
+
+
+//=======================================
+//EmpoyeeDriver
+
+// Import required classes
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+
+public class EmployeeDriver {
+
+    public static void main(String[] args) {
+
+        // Create ArrayList (ArrayList implements Iterable)
+        ArrayList<Employee> list = new ArrayList<>();
+
+        // Add employee objects
+        list.add(new Employee(103, "Ravi", 45000));
+        list.add(new Employee(101, "Anu", 60000));
+        list.add(new Employee(102, "Kiran", 50000));
+
+        System.out.println("Original List:");
+
+        // ---------- Iterable Example (for-each loop) ----------
+        // ArrayList supports Iterable interface
+        for (Employee e : list) {
+            System.out.println(e);
+        }
+
+        // ---------- Comparable (Default Sorting by ID) ----------
+        Collections.sort(list);
+
+        System.out.println("\nSorted by ID (Comparable):");
+        for (Employee e : list) {
+            System.out.println(e);
+        }
+
+        // ---------- Comparator (Sort by Name) ----------
+        Collections.sort(list, new NameComparator());
+
+        System.out.println("\nSorted by Name:");
+        for (Employee e : list) {
+            System.out.println(e);
+        }
+
+        // ---------- Comparator (Sort by Salary) ----------
+        Collections.sort(list, new SalComparator());
+
+        System.out.println("\nSorted by Salary:");
+        for (Employee e : list) {
+            System.out.println(e);
+        }
+
+        // ---------- Iterator Example ----------
+        System.out.println("\nUsing Iterator:");
+
+        // iterator() returns Iterator object
+        Iterator<Employee> itr = list.iterator();
+
+        while (itr.hasNext()) {
+
+            // fetch next element
+            Employee emp = itr.next();
+
+            System.out.println(emp);
+        }
+    }
+}
+
+
+/*
+OUTPUT:
+
+Original List:
+103  Ravi  45000.0
+101  Anu  60000.0
+102  Kiran  50000.0
+
+Sorted by ID (Comparable):
+101  Anu  60000.0
+102  Kiran  50000.0
+103  Ravi  45000.0
+
+Sorted by Name:
+101  Anu  60000.0
+102  Kiran  50000.0
+103  Ravi  45000.0
+
+Sorted by Salary:
+103  Ravi  45000.0
+102  Kiran  50000.0
+101  Anu  60000.0
+
+Using Iterator:
+103  Ravi  45000.0
+102  Kiran  50000.0
+101  Anu  60000.0
+
+
+
+*/
