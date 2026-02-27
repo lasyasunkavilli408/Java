@@ -1,0 +1,21 @@
+class ConstructorDemo {
+    int id;
+    String name;
+    ConstructorDemo() {
+        id = 0;
+        name = "Not Given";
+    }
+    ConstructorDemo(int i, String n) {
+        id = i;
+        name = n;
+    }
+    void display() {
+        System.out.println("ID: " + id + " Name: " + name);
+    }
+    public static void main(String[] args) {
+        ConstructorDemo s1 = new ConstructorDemo();
+        ConstructorDemo s2 = new ConstructorDemo(101, "Lasya");
+        s1.display();
+        s2.display();
+    }
+}
